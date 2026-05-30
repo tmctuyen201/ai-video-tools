@@ -1,247 +1,144 @@
 # 🎬 AI Video Tools
 
-<div align="center">
+<p align="center">
+  <img src="https://img.shields.io/badge/python-3.8+-blue?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge" alt="License">
+  <img src="https://img.shields.io/badge/version-1.0.0-orange?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/github/stars/tmctuyen201/ai-video-tools?style=for-the-badge" alt="Stars">
+  <img src="https://img.shields.io/badge/FFmpeg-required-red?style=for-the-badge&logo=ffmpeg" alt="FFmpeg">
+</p>
 
-[![Python](https://img.shields.io/badge/Python-3.9+-blue?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
-[![Stars](https://img.shields.io/github/stars/tmctuyen201/ai-video-tools?style=for-the-badge&logo=github&color=yellow)](https://github.com/tmctuyen201/ai-video-tools/stargazers)
-[![Downloads](https://img.shields.io/pypi/dm/ai-video-tools?style=for-the-badge&color=orange)](https://pypi.org/project/ai-video-tools)
-[![Version](https://img.shields.io/pypi/v/ai-video-tools?style=for-the-badge&color=red)](https://pypi.org/project/ai-video-tools)
-
-**5 powerful CLI tools that automate video creation workflows.**
-Save hours of manual editing with AI-powered captions, auto-thumbnails, and batch processing.
-
-[Features](#-features) • [Install](#-installation) • [Usage](#-usage) • [Pro Version](#-pro-version--29) • [Contributing](#-contributing)
-
-</div>
+> 🚀 A powerful collection of AI-powered video tools for content creators. Automate captions, thumbnails, resizing, and more — all from the command line.
 
 ---
 
 ## ✨ Features
 
-| Tool | Description | Time Saved |
-|------|-------------|------------|
-| 🎥 `yt-to-shorts` | Convert any YouTube video to vertical Shorts format | ~30 min/video |
-| 📝 `auto-caption` | AI-powered captions using OpenAI Whisper | ~1 hour/video |
-| 🖼️ `thumbnail-gen` | Generate stunning thumbnails with text overlays | ~20 min/thumb |
-| 📐 `batch-resize` | Resize videos for TikTok, IG, YT Shorts in one command | ~2 hours/batch |
-| 🔊 `voice-clone-tts` | Text-to-speech with 300+ voices via Edge TTS | ~$50/voiceover |
+| Tool | Description | Command |
+|------|-------------|---------|
+| 🎥 **YT to Shorts** | Crop/resize YouTube videos to 9:16 Shorts format | `python yt_to_shorts.py` |
+| 💬 **Auto Caption** | AI-powered captions using OpenAI Whisper | `python auto_caption.py` |
+| 🖼️ **Thumbnail Gen** | Generate thumbnails with text overlays | `python thumbnail_gen.py` |
+| 📐 **Batch Resize** | Resize videos for all social platforms | `python batch_resize.py` |
+| 🔊 **Voice TTS** | Text-to-speech with Microsoft Edge TTS | `python voice_tts.py` |
 
 ---
 
-## 🚀 Installation
+## 📦 Installation
 
 ```bash
-# Install from PyPI
-pip install ai-video-tools
-
-# Or install from source
+# Clone the repository
 git clone https://github.com/tmctuyen201/ai-video-tools.git
 cd ai-video-tools
-pip install -e ".[all]"
-```
 
-### Requirements
-- Python 3.9+
-- FFmpeg (`apt install ffmpeg` or `brew install ffmpeg`)
-- For `auto-caption`: CUDA GPU recommended (works on CPU too)
+# Install dependencies
+pip install -r requirements.txt
+
+# Install FFmpeg (required)
+# Ubuntu/Debian
+sudo apt install ffmpeg
+
+# macOS
+brew install ffmpeg
+
+# Windows - download from https://ffmpeg.org/download.html
+```
 
 ---
 
-## 📖 Usage
+## 🚀 Quick Start
 
-### 🎥 yt-to-shorts — Convert YouTube to Shorts
+### 🎥 Convert YouTube Video to Shorts
+```bash
+python yt_to_shorts.py input_video.mp4 --output shorts_output.mp4
+```
+
+### 💬 Add AI Captions
+```bash
+python auto_caption.py input_video.mp4 --model base --language en
+```
+
+### 🖼️ Generate Thumbnail
+```bash
+python thumbnail_gen.py --image bg.jpg --title "My Video" --output thumb.png
+```
+
+### 📐 Batch Resize for All Platforms
+```bash
+python batch_resize.py input_video.mp4 --output-dir ./resized/
+```
+
+### 🔊 Text to Speech
+```bash
+python voice_tts.py "Hello world" --output speech.mp3 --voice en-US-AriaNeural
+```
+
+---
+
+## 📖 Detailed Usage
+
+Each tool includes built-in help:
+```bash
+python yt_to_shorts.py --help
+python auto_caption.py --help
+python thumbnail_gen.py --help
+python batch_resize.py --help
+python voice_tts.py --help
+```
+
+---
+
+## 🛠️ Makefile Commands
 
 ```bash
-# Download and convert to 9:16 vertical format
-yt-to-shorts https://youtube.com/watch?v=xxxxx --output shorts/
-
-# Auto-crop with smart center detection
-yt-to-shorts input.mp4 --crop smart --add-captions --max-duration 59
-```
-
-**Features:**
-- Smart cropping with face detection
-- Auto-caption overlay
-- Configurable duration (max 60s)
-- Batch mode for playlists
-
----
-
-### 📝 auto-caption — AI-Powered Captions
-
-```bash
-# Add captions using Whisper AI
-auto-caption video.mp4 --style tiktok --font-size 48
-
-# Custom styling
-auto-caption video.mp4 --font "Montserrat" --color yellow --position bottom --shadow
-```
-
-**Features:**
-- Powered by OpenAI Whisper (99% accuracy)
-- TikTok-style word-by-word captions
-- 10+ built-in styles (TikTok, YouTube, Instagram, Netflix)
-- Multi-language support
-- Export SRT files
-
----
-
-### 🖼️ thumbnail-gen — Generate Thumbnails
-
-```bash
-# Generate thumbnail from video frame
-thumbnail-gen video.mp4 --text "10X YOUR GROWTH" --style bold
-
-# Custom background + overlay
-thumbnail-gen --bg image.png --text "EPISODE 1" --emoji 🔥 --arrows
-```
-
-**Features:**
-- Auto-select best frame (highest contrast)
-- 15+ text styles and fonts
-- Emoji and arrow overlays
-- YouTube-optimized (1280x720)
-- A/B test multiple versions
-
----
-
-### 📐 batch-resize — Multi-Platform Export
-
-```bash
-# Resize for all platforms at once
-batch-resize video.mp4 --platforms tiktok,instagram,youtube
-
-# Batch process entire folder
-batch-resize ./videos/ --output ./export/ --platforms all --quality high
-```
-
-**Platform Presets:**
-| Platform | Resolution | Max Duration |
-|----------|-----------|-------------|
-| TikTok | 1080x1920 | 3 min |
-| Instagram Reels | 1080x1920 | 90 sec |
-| YouTube Shorts | 1080x1920 | 60 sec |
-| YouTube Standard | 1920x1080 | No limit |
-| Twitter/X | 1280x720 | 2 min 20 sec |
-
----
-
-### 🔊 voice-clone-tts — Text-to-Speech
-
-```bash
-# Generate voiceover
-voice-clone-tts "Welcome to my channel!" --voice en-US-GuyNeural --output voice.mp3
-
-# Batch generate from script
-voice-clone-tts --script script.txt --voice en-US-JennyNeural --speed 1.2
-
-# List all available voices (300+)
-voice-clone-tts --list-voices
-```
-
-**Features:**
-- 300+ neural voices in 70+ languages
-- Adjustable speed, pitch, and volume
-- SSML support for advanced control
-- Batch processing from text files
-- Free (uses Microsoft Edge TTS)
-
----
-
-## ⚙️ Configuration
-
-Create `~/.ai-video-tools/config.yaml`:
-
-```yaml
-defaults:
-  output_dir: ./output
-  quality: high
-  fps: 30
-
-auto_caption:
-  model: base  # tiny, base, small, medium, large
-  style: tiktok
-  font_size: 48
-  font: Montserrat-Bold
-  color: white
-  highlight_color: yellow
-
-thumbnail:
-  width: 1280
-  height: 720
-  font: Impact
-  font_size: 72
-
-tts:
-  voice: en-US-JennyNeural
-  speed: 1.0
+make install     # Install all dependencies
+make test        # Run tests
+make clean       # Clean generated files
+make help        # Show all available commands
 ```
 
 ---
 
-## 📊 Performance
+## ⭐ Pro Version — $29
 
-| Tool | Processing Speed | GPU Acceleration |
-|------|-----------------|------------------|
-| yt-to-shorts | 2x realtime | ✅ CUDA |
-| auto-caption | 5x realtime | ✅ CUDA |
-| thumbnail-gen | < 1 second | ❌ |
-| batch-resize | 3x realtime | ✅ CUDA |
-| voice-clone-tts | 10x realtime | ❌ |
+<p align="center">
+  <img src="https://img.shields.io/badge/🔓_Pro_Version-$29-gold?style=for-the-badge&logo=stripe&logoColor=white" alt="Pro Version">
+</p>
 
----
+Unlock the **full power** of AI Video Tools with the Pro version:
 
-## 💎 Pro Version — $29
+- 🤖 **AI Script Writer** — Generate video scripts with GPT-4
+- 🎨 **Advanced Thumbnails** — AI background removal & style transfer
+- 📊 **Batch Processing** — Process hundreds of videos at once
+- 🔄 **Auto Upload** — Direct upload to YouTube, TikTok, Instagram
+- 🎵 **AI Music** — Generate background music for your videos
+- 📈 **Analytics** — Track performance across platforms
+- 🆕 **Priority Updates** — Get new features first
 
-Unlock the **full power** of AI Video Tools:
-
-| Feature | Free | Pro ($29) |
-|---------|------|----------|
-| Basic tools | ✅ | ✅ |
-| Batch processing | ❌ | ✅ |
-| Custom watermark | ❌ | ✅ |
-| Priority queue | ❌ | ✅ |
-| Face-tracking crop | ❌ | ✅ |
-| AI script generator | ❌ | ✅ |
-| Auto-upload to YouTube | ❌ | ✅ |
-| Voice cloning (custom) | ❌ | ✅ |
-| Priority support | ❌ | ✅ |
-| Lifetime updates | ❌ | ✅ |
-
-### 🎁 Get Pro Version
-
-**👉 [Buy Pro License — $29](https://gumroad.com/l/ai-video-tools-pro)**
-
-> 🎉 **Launch Special:** Use code `LAUNCH50` for 50% off!
+> 💳 **One-time payment. Lifetime access. No subscription.**
+>
+> 👉 [Get Pro Version](https://gumroad.com/l/ai-video-tools-pro) — Use code `LAUNCH50` for 50% off!
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-```bash
-git clone https://github.com/tmctuyen201/ai-video-tools.git
-cd ai-video-tools
-pip install -e ".[dev]"
-pytest tests/
-```
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ---
 
 ## 📄 License
 
-MIT License — see [LICENSE](LICENSE) for details.
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
 
 ---
 
-<div align="center">
-
-**⭐ Star this repo if it saved you time!**
-
-Made with ❤️ by [@tmctuyen201](https://github.com/tmctuyen201)
-
-[![Twitter](https://img.shields.io/twitter/follow/tmctuyen201?style=social)](https://twitter.com/tmctuyen201)
-
-</div>
+<p align="center">
+  Made with ❤️ by <a href="https://github.com/tmctuyen201">tmctuyen201</a>
+</p>
